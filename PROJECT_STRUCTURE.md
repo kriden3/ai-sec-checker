@@ -1,0 +1,57 @@
+# 项目结构总览（推荐 Python 实现，便于后期扩展）
+
+```shell
+aio-sec-checker/
+├── ai_sec_checker/            # 主包，核心功能模块
+│   ├── __init__.py
+│   ├── cli.py                 # CLI命令入口（参数解析/主流程调度）
+│   ├── config.py              # 配置管理（yaml/json加载与保存）
+│   ├── environment/           # 环境检测子模块
+│   │   ├── __init__.py
+│   │   ├── tool_finder.py     # AI工具进程和安装路径识别
+│   │   ├── perms_checker.py   # 权限检测（root、读写敏感目录）
+│   │   └── config_scan.py     # 工具配置文件扫描风险项
+│   ├── monitoring/            # 行为和外联监控模块
+│   │   ├── __init__.py
+│   │   ├── file_watcher.py    # 文件敏感操作监控
+│   │   ├── cmd_watcher.py     # shell/命令执行监控
+│   │   └── network_watcher.py # 网络行为监控
+│   ├── scanning/              # 代码与敏感信息扫描
+│   │   ├── __init__.py
+│   │   ├── code_scanner.py    # 静态/语义代码安全扫描
+│   │   ├── diff_utils.py      # git diff及变更区块判定
+│   │   └── secret_scanner.py  # 明文凭据、敏感内容扫描
+│   ├── report/                # 报告与日志输出
+│   │   ├── __init__.py
+│   │   ├── formatter.py       # 风险报告格式化（md/html/json）
+│   │   └── logger.py          # 本地审计日志归档
+│   ├── plugins/               # 插件/扩展支持
+│   │   ├── __init__.py
+│   │   └── base.py            # 插件基类、加载机制
+│   └── utils/                 # 工具函数库
+│       ├── __init__.py
+│       ├── file_helpers.py    # 通用文件操作
+│       ├── net_helpers.py     # 网络相关通用函数
+│       └── risk_levels.py     # 风险分级等枚举定义
+│
+├── tests/                     # 单元测试与集成测试
+│   ├── environment/
+│   ├── monitoring/
+│   ├── scanning/
+│   ├── report/
+│   └── plugins/
+│
+├── docs/                      # 项目文档
+│   ├── README.md
+│   ├── 模块设计.md
+│   ├── 使用手册.md
+│   └── CHANGELOG.md
+│
+├── examples/                  # 使用示例、风险报告样例
+│   └── demo_report.md
+│
+├── requirements.txt           # Python依赖说明
+├── setup.py                   # 包/命令行工具安装脚本
+├── ai-sec-checker.yaml        # 默认配置文件模版
+└── .gitignore
+```
